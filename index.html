@@ -29,7 +29,6 @@ body {
   100% { transform: translateY(-100vh); opacity: 0; }
 }
 
-/* Valentine Card */
 .container {
   padding: 20px;
 }
@@ -59,6 +58,19 @@ button {
   background: #444;
   color: white;
   position: relative;
+}
+
+/* Memories Section (Hidden First) */
+#memories {
+  display: none;
+  margin-top: 30px;
+}
+
+/* Dancing GIF */
+#happyGif {
+  display: none;
+  margin: 20px auto;
+  width: 200px;
 }
 
 /* Flip Cards */
@@ -102,13 +114,6 @@ button {
   object-fit: cover;
 }
 
-.flip-card-back {
-  background: linear-gradient(135deg, #ff6a88, #ff99ac);
-  transform: rotateY(180deg);
-  padding: 10px;
-  font-size: 14px;
-}
-
 /* Pop Image */
 .pop-image {
   transition: transform 0.4s ease, box-shadow 0.4s ease;
@@ -126,34 +131,27 @@ button {
   100% { transform: scale(1.5); }
 }
 
-/* Music Button */
-#musicBtn {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 9999;
-  background: #ff4d6d;
-  color: white;
-  border-radius: 50px;
+.flip-card-back {
+  background: linear-gradient(135deg, #ff6a88, #ff99ac);
+  transform: rotateY(180deg);
+  padding: 10px;
+  font-size: 14px;
 }
 </style>
 </head>
 
 <body>
 
-<audio id="bgMusic" loop>
+<!-- Background Music -->
+<audio id="bgMusic" loop autoplay>
   <source src="music.mp3" type="audio/mpeg">
 </audio>
-
-<button id="musicBtn" onclick="document.getElementById('bgMusic').play()">
-🎵 Play Music
-</button>
 
 <div class="container">
   <h1>Jiyuuu ❤️</h1>
   <h2>Will you be my Valentine? 💌</h2>
 
-  <button id="yesBtn" onclick="alert('YAY!!! You made me the happiest 😍💖')">
+  <button id="yesBtn" onclick="onYes()">
     YES 😍
   </button>
 
@@ -161,42 +159,47 @@ button {
     NO 😜
   </button>
 
-  <h2>Click our memories 💕</h2>
+  <!-- Dancing Happy GIF -->
+  <img id="happyGif" src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif" alt="Happy Dance">
 
-  <!-- FLIP CARDS -->
-  <div class="flip-card" onclick="this.classList.toggle('flipped')">
-    <div class="flip-card-inner">
-      <div class="flip-card-front">
-        <img src="images/her1.jpg" class="pop-image" onclick="this.classList.toggle('active')">
-      </div>
-      <div class="flip-card-back">
-        You make my heart smile 💖
+  <!-- Memories (Hidden Until YES) -->
+  <div id="memories">
+    <h2>Our Memories 💕</h2>
+
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="images/her1.jpg" class="pop-image" onclick="this.classList.toggle('active')">
+        </div>
+        <div class="flip-card-back">
+          You make my heart smile 💖
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="flip-card" onclick="this.classList.toggle('flipped')">
-    <div class="flip-card-inner">
-      <div class="flip-card-front">
-        <img src="images/her2.jpg" class="pop-image" onclick="this.classList.toggle('active')">
-      </div>
-      <div class="flip-card-back">
-        My favorite person 😍
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="images/her2.jpg" class="pop-image" onclick="this.classList.toggle('active')">
+        </div>
+        <div class="flip-card-back">
+          My favorite person 😍
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="flip-card" onclick="this.classList.toggle('flipped')">
-    <div class="flip-card-inner">
-      <div class="flip-card-front">
-        <img src="images/her3.jpg" class="pop-image" onclick="this.classList.toggle('active')">
-      </div>
-      <div class="flip-card-back">
-        You are my happiness 🌸
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="images/her3.jpg" class="pop-image" onclick="this.classList.toggle('active')">
+        </div>
+        <div class="flip-card-back">
+          You are my happiness 🌸
+        </div>
       </div>
     </div>
-  </div>
 
+  </div>
 </div>
 
 <script>
@@ -207,6 +210,20 @@ function moveNo() {
   noBtn.style.position = "fixed";
   noBtn.style.left = x + "px";
   noBtn.style.top = y + "px";
+}
+
+function onYes() {
+  // Show GIF
+  document.getElementById("happyGif").style.display = "block";
+
+  // Show Memories
+  document.getElementById("memories").style.display = "block";
+
+  // Play Music (guaranteed)
+  const music = document.getElementById("bgMusic");
+  music.play();
+
+  alert("YAY!!! You made me the happiest 😍💖");
 }
 
 /* Floating hearts */
